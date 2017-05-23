@@ -12,6 +12,9 @@ class BotManager
 			end
 		end
 	end
+	def shutdown
+		@bots.each {|bot| bot.stop}
+	end
 	def resolveName(name)
 		raise ArgumentError.new("Bot '#{name}' does not exist.") unless @botNames.key? name
 		return @bots[@botNames[name]]
