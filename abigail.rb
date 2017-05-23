@@ -9,30 +9,29 @@ continue = true
 while continue
 	print "Abigail> "
 	command = gets.split(/[[:space:]]/)
-	if command[0] != nil
-		case command[0]
-		when 'exit'
-			continue = false
-		when 'run','start'
-			if command[1] != nil
-				begin
-					@manager.start(command[1])
-				rescue ArgumentError => ex
-					print ex
-				end
-			else
-				puts "\tUsage: #{command[0]} <name>\n\nAttempts to start the specified bot."
+	next if command[0] == nil
+	case command[0]
+	when 'exit'
+		continue = false
+	when 'run','start'
+		if command[1] != nil
+			begin
+				@manager.start(command[1])
+			rescue ArgumentError => ex
+				print ex
 			end
-		when 'stop','halt'
-			if command[1] != nil
-				begin
-					@manager.stop(command[1])
-				rescue ArgumentError => ex
-					print ex
-				end
-			else
-				puts "\tUsage: #{command[0]} <name>\n\nStops the given bot if it is already running."
+		else
+			puts "\tUsage: #{command[0]} <name>\n\nAttempts to start the specified bot."
+		end
+	when 'stop','halt'
+		if command[1] != nil
+			begin
+				@manager.stop(command[1])
+			rescue ArgumentError => ex
+				print ex
 			end
+		else
+			puts "\tUsage: #{command[0]} <name>\n\nStops the given bot if it is already running."
 		end
 	end
 end
